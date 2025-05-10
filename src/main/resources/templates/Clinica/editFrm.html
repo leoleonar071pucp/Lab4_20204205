@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/navbar.html :: header( title = 'Clinica')}"></head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navbar.html :: navbar( active = 'Product')}"></nav>
+    <div class="row mb-4">
+        <div class="col-md-6 offset-md-3">
+            <h2 th:text="${product.id==0? 'Nuevo Hospital':'Editar Hospital'}">Editar Hospital</h2>
+            <hr/>
+            <div class="alert alert-danger" role="alert" th:if="${msg != null}" th:text="${msg}">
+                A simple success alert—check it out!
+            </div>
+            <form method="post" th:action="@{'/product/save'}" th:object="${product}">
+                <input th:field="*{id}" type="hidden"/>
+                <div class="mb-3">
+                    <label class="form-label">Nombre del Hospital</label>
+                    <input th:field="*{name}" type="text" class="form-control"
+                           th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"/>
+                    <div id="validationServer03Feedback" class="invalid-feedback"
+                         th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                        Mensaje de error de nombre de hospial
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Direcccion</label>
+                    <input th:field="*{address}" type="text" class="form-control"
+                           th:classappend="${#fields.hasErrors('address')?'is-invalid':''}"/>
+                    <div id="invalid-feedback" class="invalid-feedback"
+                         th:if="${#fields.hasErrors('address')}" th:errors="*{address}">
+                        Mensaje de error direcccion del hospital
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">numero de contacto</label>
+                    <input th:field="*{address}" type="text" class="form-control"
+                           th:classappend="${#fields.hasErrors('phone_number')?'is-invalid':''}"/>
+                    <div id="ssass-feedback" class="invalid-feedback"
+                         th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}">
+                        Mensaje de error de numer de contacto
+                    </div>
+                </div>
+
+                <a th:href="@{'/Clinica'}" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-primary"
+                        th:text="${Clinica.id==0? 'Guardar':'Actualizar'}">Actualizar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:replace="~{fragments/navbar.html :: footer-bootstrap}"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/navbar.html :: header( title = 'Hospitales')}"></head>
+<body>
+<main>
+  <div class="container px-4 pb-5">
+    <nav th:replace="~{fragments/navbar.html :: navbar( active = 'Product')}"></nav>
+    <h1 class="pb-2 border-bottom">Lista Productos</h1>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/product/new'}">Nuevo Producto</a>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>nombre</th>
+        <th>direccion</th>
+        <th>Conctacto</th>
+
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="product, info : ${listaHospital}">
+        <td th:text="${info.index + 1}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.category.address}"></td>
+        <td th:text="${product.supplier.phone_number}"></td>
+
+        <td><a class="btn btn-primary"
+               th:href="@{'/Clinica/edit' + '?id=' + ${product.id}}">Editar</a>
+        </td>
+        <td><a class="btn btn-danger"
+               th:href="@{'/Clinica/delete' + '?id=' + ${product.id}}">Borrar</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+<script th:replace="~{fragments/navbar.html :: footer-bootstrap}"></script>
+</body>
+</html>
